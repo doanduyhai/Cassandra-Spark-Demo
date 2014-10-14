@@ -24,7 +24,7 @@ There are 2 packages with 2 distinct demos
         <ol>
             <li> Go to the folder main/data</li>
             <li> Execute <em>$CASSANDRA_HOME/bin/cqlsh -f weather_data_schema.cql</em> from this folder. It should create the keyspace <strong>spark_demo</strong> and some tables </li>
-            <li> Download the <em>Weather_Raw_Data_2014.csv.gz</em> from <strong><a target="blank_" href="https://drive.google.com/a/datastax.com/file/d/0B6wR2aj4Cb6wOF95QUZmVTRPR2s/view?usp=sharing">here</a></strong> </li>
+            <li> Download the <em>Weather_Raw_Data_2014.csv.gz</em> from <strong><a target="blank_" href="https://drive.google.com/file/d/0B6wR2aj4Cb6wOF95QUZmVTRPR2s/view?usp=sharing">here</a></strong> </li>
             <li> Unzip it somewhere on your disk </li>
         </ol>
     </li>
@@ -46,4 +46,4 @@ There are 2 packages with 2 distinct demos
 </ul>
 
 [Spark Cassandra Connector]: https://github.com/datastax/spark-cassandra-connector
-[here]: https://drive.google.com/a/datastax.com/file/d/0B6wR2aj4Cb6wOF95QUZmVTRPR2s/view?usp=sharing
+
