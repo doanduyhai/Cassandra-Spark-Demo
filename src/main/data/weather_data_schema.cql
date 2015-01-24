@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS weather_station (
 );
 
 TRUNCATE weather_station;
-CREATE INDEX weather_station_country ON weather_station (country_code);
-//COPY weather_station (id, name, country_code, state_code, call_sign, lat, long, elevation) FROM 'stations.csv';
+//CREATE INDEX weather_station_country ON weather_station (country_code);
+COPY weather_station (id, name, country_code, state_code, call_sign, lat, long, elevation) FROM 'stations.csv';
 
 /*
 Raw weather readings from a single station, hourly.

@@ -1,7 +1,10 @@
 package us.unemployment.demo
 
+import org.apache.spark.SparkContext._
 import com.datastax.spark.connector._
+import com.datastax.spark.connector.rdd.CassandraRDD
 import org.apache.spark.{SparkConf, SparkContext}
+import us.unemployment.demo.UsUnemploymentSchema.{TABLE, KEYSPACE}
 
 object FromCassandraToRow {
 
@@ -9,13 +12,13 @@ object FromCassandraToRow {
 
     val conf = new SparkConf(true)
       .setAppName("read_csv_from_cassandra_into_case_class")
-      .setMaster("local[4]")
+      .setMaster("local")
       .set("spark.cassandra.connection.host", "localhost")
 
 
     val sc = new SparkContext(conf)
 
-    sc.cassandraTable(UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE)
+    sc.cassandraTable(KEYSPACE, TABLE)
     .foreach( row => {
         val year = row.getInt("year")
         val unemployedPercentageToLabor = row.getDouble("unemployed_percentage_to_labor")
@@ -23,6 +26,16 @@ object FromCassandraToRow {
       }
     )
 
+    // or
+    val unemployment: CassandraRDD[(String, Double)] = sc.cassandraTable(KEYSPACE, TABLE)
+      .select("year", "unemployed_percentage_to_labor").as((_: String, _: Double))
 
+    println(" ------------Alternative ----------------- ")
+
+    unemployment
+      .sortByKey()
+      .collect().foreach{case (year,percentage) => println(s""" Year($year), unemployment % : $percentage""")}
+
+    sc.stop()
   }
 }

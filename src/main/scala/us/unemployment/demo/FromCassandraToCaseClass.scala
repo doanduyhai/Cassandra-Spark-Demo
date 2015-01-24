@@ -1,7 +1,9 @@
 package us.unemployment.demo
 
 import com.datastax.spark.connector._
+import com.datastax.spark.connector.rdd.CassandraRDD
 import org.apache.spark.{SparkConf, SparkContext}
+import us.unemployment.demo.UsUnemploymentSchema.{TABLE, KEYSPACE}
 
 object FromCassandraToCaseClass {
 
@@ -9,13 +11,15 @@ object FromCassandraToCaseClass {
 
     val conf = new SparkConf(true)
       .setAppName("read_csv_from_cassandra_into_case_class")
-      .setMaster("local[4]")
+      .setMaster("local")
       .set("spark.cassandra.connection.host", "localhost")
 
     val sc = new SparkContext(conf)
 
-    sc.cassandraTable[UsUnemployment](UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE)
+    sc.cassandraTable[UsUnemployment](KEYSPACE, TABLE)
     .foreach(println(_))
+
+    sc.stop()
   }
 
 

@@ -46,7 +46,7 @@ object FromCSVToCassandra {
 
     val conf = new SparkConf(true)
       .setAppName("write_csv_to_cassandra")
-      .setMaster("local[4]")
+      .setMaster("local")
       .set("spark.cassandra.connection.host", "localhost")
 
     val sc = new SparkContext(conf)
@@ -64,8 +64,10 @@ object FromCSVToCassandra {
         lines(8).toInt, lines(9).toDouble, lines(10).toInt)
       }}
       .saveToCassandra(UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE, SomeColumns(TABLE_COLUMNS:_*))
+
+    sc.stop()
   }
 
 
-  }
+
 }
