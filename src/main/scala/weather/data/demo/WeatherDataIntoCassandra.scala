@@ -8,7 +8,7 @@ import org.joda.time.Period
 object WeatherDataIntoCassandra {
 
   val WEATHER_2014_CSV: String = "/Users/archinnovinfo/perso/spark_data/Weather Data 2014.csv"
-  val TABLE_COLUMNS = Seq("weather_station", "year", "month", "day", "hour",
+  val TABLE_COLUMNS = SomeColumns("weather_station", "year", "month", "day", "hour",
                           "temperature", "dewpoint", "pressure", "wind_direction", "wind_speed",
                           "sky_condition", "sky_condition_text", "one_hour_precip", "six_hour_precip")
 
@@ -43,11 +43,12 @@ object WeatherDataIntoCassandra {
         lines(5).toFloat, lines(6).toFloat, lines(7).toFloat, lines(8).toFloat.toInt, lines(9).toFloat,
         skyConditionCode, skyConditionBc.value.get(skyConditionCode), lines(11).toFloat, lines(12).toFloat)
       }}
-      .saveToCassandra(WeatherDataSchema.KEYSPACE, WeatherDataSchema.WEATHER_DATA_TABLE, SomeColumns(TABLE_COLUMNS:_*))
+      .saveToCassandra(WeatherDataSchema.KEYSPACE, WeatherDataSchema.WEATHER_DATA_TABLE, TABLE_COLUMNS)
 
     val endTime = DateTime.now
 
     val period: Period = new Period(endTime, startTime)
+
 
     println(s"Job duration (sec) : ${period.getSeconds}")
   }

@@ -2,6 +2,7 @@ package us.unemployment.demo
 
 
 import com.datastax.spark.connector.{SomeColumns, _}
+import com.datastax.spark.connector.SomeColumns
 import org.apache.spark.{SparkConf, SparkContext}
 
 object FromCSVToCassandra {
@@ -37,7 +38,7 @@ object FromCSVToCassandra {
   Footnotes
    */
   val CSV: String = "src/main/data/us_unemployment.csv"
-  val TABLE_COLUMNS = Seq("year", "civil_non_institutional_count", "civil_labor_count", "labor_population_percentage",
+  val TABLE_COLUMNS = SomeColumns("year", "civil_non_institutional_count", "civil_labor_count", "labor_population_percentage",
     "employed_count", "employed_percentage", "agriculture_part_count", "non_agriculture_part_count", "unemployed_count",
     "unemployed_percentage_to_labor", "not_labor_count", "footnotes")
 
@@ -63,7 +64,7 @@ object FromCSVToCassandra {
         lines(4).toInt, lines(5).toDouble, lines(6).toInt, lines(7).toInt,
         lines(8).toInt, lines(9).toDouble, lines(10).toInt)
       }}
-      .saveToCassandra(UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE, SomeColumns(TABLE_COLUMNS:_*))
+      .saveToCassandra(UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE, TABLE_COLUMNS)
 
     sc.stop()
   }
