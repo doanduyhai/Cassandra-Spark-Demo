@@ -3,6 +3,7 @@ package us.unemployment.demo
 
 import com.datastax.spark.connector._
 import org.apache.spark.{SparkConf, SparkContext}
+import us.unemployment.demo.UsUnemploymentSchema.{TABLE, KEYSPACE}
 
 object FromCSVCaseClassToCassandra {
 
@@ -43,7 +44,7 @@ object FromCSVCaseClassToCassandra {
         lines(4).toInt, lines(5).toDouble, lines(6).toInt, lines(7).toInt,
         lines(8).toInt, lines(9).toDouble, lines(10).toInt)
       }}
-      .saveToCassandra(UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE)
+      .saveToCassandra(KEYSPACE, TABLE)
 
     sc.stop()
   }

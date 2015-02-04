@@ -1,7 +1,6 @@
 package us.unemployment.demo
 
 import com.datastax.spark.connector._
-import com.datastax.spark.connector.rdd.CassandraRDD
 import org.apache.spark.{SparkConf, SparkContext}
 import us.unemployment.demo.UsUnemploymentSchema.{TABLE, KEYSPACE}
 

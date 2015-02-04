@@ -2,8 +2,8 @@ package us.unemployment.demo
 
 
 import com.datastax.spark.connector.{SomeColumns, _}
-import com.datastax.spark.connector.SomeColumns
 import org.apache.spark.{SparkConf, SparkContext}
+import us.unemployment.demo.UsUnemploymentSchema.{TABLE, KEYSPACE}
 
 object FromCSVToCassandra {
 
@@ -64,7 +64,7 @@ object FromCSVToCassandra {
         lines(4).toInt, lines(5).toDouble, lines(6).toInt, lines(7).toInt,
         lines(8).toInt, lines(9).toDouble, lines(10).toInt)
       }}
-      .saveToCassandra(UsUnemploymentSchema.KEYSPACE, UsUnemploymentSchema.TABLE, TABLE_COLUMNS)
+      .saveToCassandra(KEYSPACE, TABLE, TABLE_COLUMNS)
 
     sc.stop()
   }

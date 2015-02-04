@@ -10,7 +10,7 @@ object FromCassandraToSQL {
   def main (args: Array[String]) {
 
     val conf = new SparkConf(true)
-      .setAppName("read_csv_from_cassandra_into_case_class")
+      .setAppName("read_data_from_cassandra_using_SQL")
       .setMaster("local")
       .set("spark.cassandra.connection.host", "localhost")
 
