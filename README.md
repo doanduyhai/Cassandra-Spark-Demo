@@ -14,10 +14,26 @@ There are 2 packages with 2 distinct demos
         <ol>
             <li> <strong>FromCassandraToRow</strong>: read US employment data from Cassandra into <strong>CassandraRow</strong> low-level object</li>
             <li> <strong>FromCassandraToCaseClass</strong>: read US employment data from Cassandra into custom Scala case class, leveraging the built-in object mapper</li>
+            <li> <strong>FromCassandraToSQL</strong>: read US employment data from Cassandra using <strong>SparkSQL</strong> a the connector integration
         </ol>
     </li>        
 </ul>
 
+* _twitter.stream_
+<ul>
+    <li> <strong>TwitterStreaming</strong>: demo of Twitter stream saved back to Cassandra (<strong>stream IN</strong>). To make this demo work, you need to start the job with the following info:
+
+        <ol>
+            <li>-Dtwitter4j.oauth.consumerKey="value"</li>
+            <li>-Dtwitter4j.oauth.consumerSecret="value"</li>
+            <li>-Dtwitter4j.oauth.accessToken="value"</li>
+            <li>-Dtwitter4j.oauth.accessTokenSecret="value"</li>
+        </ol>
+        
+        If you don't have a Twitter app credentials, create a new apps at <a href="https://apps.twitter.com/" target="_blank">https://apps.twitter.com/</a>
+  </li>
+</ul>
+ 
 * _weather.data.demo_
 <ul>
     <li> Data preparation
