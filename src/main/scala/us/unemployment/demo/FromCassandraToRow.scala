@@ -18,6 +18,8 @@ object FromCassandraToRow {
 
     val sc = new SparkContext(conf)
 
+    println("\n ------------Cassandra Row ----------------- \n")
+
     sc.cassandraTable(KEYSPACE, TABLE)
     .foreach( row => {
         val year = row.getInt("year")
@@ -30,7 +32,7 @@ object FromCassandraToRow {
     val unemployment: CassandraRDD[(String, Double)] = sc.cassandraTable(KEYSPACE, TABLE)
       .select("year", "unemployed_percentage_to_labor").as((_: String, _: Double))
 
-    println(" ------------Alternative ----------------- ")
+    println("\n ------------Tuples ----------------- \n")
 
     unemployment
       .sortByKey()

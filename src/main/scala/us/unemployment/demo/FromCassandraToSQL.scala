@@ -24,6 +24,8 @@ object FromCassandraToSQL {
                                          s"FROM $TABLE WHERE unemployed_percentage_to_labor > 8 " +
                                          s"ORDER BY year DESC")
 
+    println("\n ------------ Results ----------------- \n")
+
     row.collect().foreach(row => println(s" Year(${row(0)}): ${row(1)}%"))
 
     sc.stop()

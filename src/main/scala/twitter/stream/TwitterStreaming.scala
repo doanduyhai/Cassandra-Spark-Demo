@@ -25,27 +25,15 @@ object TwitterStreaming {
 
   val StreamingBatchInterval = 5
 
-  val Keywords = Seq("love","you","hate","cat","lol")
+  val Keywords = Seq("love","hate","lol","cat")
   
   def main (args: Array[String]): Unit = {
 
-    val consumerKey: String = sys.env.getOrElse("TWITTER_CONSUMER_KEY", sys.props("twitter4j.oauth.consumerKey"))
-    val consumerSecret: String = sys.env.getOrElse("TWITTER_CONSUMER_SECRET", sys.props("twitter4j.oauth.consumerSecret"))
-
-    val accessToken: String = sys.env.getOrElse("TWITTER_ACCESS_TOKEN", sys.props("twitter4j.oauth.accessToken"))
-
-    val accessTokenSecret: String = sys.env.getOrElse("TWITTER_ACCESS_TOKEN_SECRET", sys.props("twitter4j.oauth.accessTokenSecret"))
-
-    val authorization: OAuthAuthorization = new OAuthAuthorization(new ConfigurationBuilder()
-      .setOAuthConsumerKey(consumerKey)
-      .setOAuthConsumerSecret(consumerSecret)
-      .setOAuthAccessToken(accessToken)
-      .setOAuthAccessTokenSecret(accessTokenSecret)
-      .build)
+    val authorization: OAuthAuthorization = buildTwitterAuthorization()
 
     val conf = new SparkConf(true)
       .setAppName("stream_to_cassandra")
-      .setMaster("local[4]")
+      .setMaster("local[2]")
       .set("spark.cassandra.connection.host", "localhost")
 
     StreamingSchema.prepareSchemaAndCleanData(conf)
@@ -59,7 +47,7 @@ object TwitterStreaming {
     stream.flatMap(_.getText.toLowerCase.split("""\s+"""))
       .filter(Keywords.contains(_))
       .countByValueAndWindow(batchDuration, batchDuration)
-      .transform((rdd, time) => rdd.map { case (term, count) => (term, count, now(time))})
+      .transform((rdd, time) => rdd.map { case (keyword, count) => (keyword, count, now(time))})
       .saveToCassandra(KEYSPACE, TABLE, SomeColumns("topic", "mentions", "interval"))
 
     ssc.checkpoint("/tmp/checkpoint")
@@ -70,4 +58,21 @@ object TwitterStreaming {
 
   private def now(time: Time): String =
     new DateTime(time.milliseconds, DateTimeZone.UTC).toString("yyyy-MM-dd HH:mm:ss")
+
+  private def buildTwitterAuthorization(): OAuthAuthorization = {
+    val consumerKey: String = sys.env.getOrElse("TWITTER_CONSUMER_KEY", sys.props("twitter4j.oauth.consumerKey"))
+    val consumerSecret: String = sys.env.getOrElse("TWITTER_CONSUMER_SECRET", sys.props("twitter4j.oauth.consumerSecret"))
+
+    val accessToken: String = sys.env.getOrElse("TWITTER_ACCESS_TOKEN", sys.props("twitter4j.oauth.accessToken"))
+
+    val accessTokenSecret: String = sys.env.getOrElse("TWITTER_ACCESS_TOKEN_SECRET", sys.props("twitter4j.oauth.accessTokenSecret"))
+
+    val authorization: OAuthAuthorization = new OAuthAuthorization(new ConfigurationBuilder()
+      .setOAuthConsumerKey(consumerKey)
+      .setOAuthConsumerSecret(consumerSecret)
+      .setOAuthAccessToken(accessToken)
+      .setOAuthAccessTokenSecret(accessTokenSecret)
+      .build)
+    authorization
+  }
 }

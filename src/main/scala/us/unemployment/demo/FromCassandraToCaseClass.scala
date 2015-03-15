@@ -15,9 +15,11 @@ object FromCassandraToCaseClass {
 
     val sc = new SparkContext(conf)
 
-    sc.cassandraTable[UsUnemployment](KEYSPACE, TABLE)
-    .foreach(println(_))
+    println("\n ------------ Results ----------------- \n")
 
+    sc.cassandraTable[UsUnemployment](KEYSPACE, TABLE)
+    .sortBy(record => record.year)
+    .foreach(println(_))
     sc.stop()
   }
 
