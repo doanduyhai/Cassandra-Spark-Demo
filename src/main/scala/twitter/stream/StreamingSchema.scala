@@ -12,10 +12,10 @@ object StreamingSchema {
     CassandraConnector(conf).withSessionDo { session =>
       session.execute(s"CREATE KEYSPACE IF NOT EXISTS $KEYSPACE WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1 }")
       session.execute( s"""CREATE TABLE IF NOT EXISTS $KEYSPACE.$TABLE (
-                            topic text,
+                            keyword text,
                             interval text,
-                            mentions counter,
-                            PRIMARY KEY(topic, interval)
+                            count counter,
+                            PRIMARY KEY(keyword, interval)
                           ) WITH CLUSTERING ORDER BY (interval DESC)
       """)
       session.execute(s"TRUNCATE $KEYSPACE.$TABLE")

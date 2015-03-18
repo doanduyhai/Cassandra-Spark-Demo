@@ -25,7 +25,7 @@ object TwitterStreaming {
 
   val StreamingBatchInterval = 5
 
-  val Keywords = Seq("love","hate","lol","cat")
+  val Keywords = Seq("love","hate",":-)",":)",":-(",":(")
   
   def main (args: Array[String]): Unit = {
 
@@ -47,14 +47,25 @@ object TwitterStreaming {
     stream.flatMap(_.getText.toLowerCase.split("""\s+"""))
       .filter(Keywords.contains(_))
       .countByValueAndWindow(batchDuration, batchDuration)
-      .transform((rdd, time) => rdd.map { case (keyword, count) => (keyword, count, now(time))})
-      .saveToCassandra(KEYSPACE, TABLE, SomeColumns("topic", "mentions", "interval"))
+      .transform((rdd, time) => rdd.map { case (keyword, count) => (replaceSmiley(keyword), count, now(time))})
+      .saveToCassandra(KEYSPACE, TABLE, SomeColumns("keyword", "count", "interval"))
 
     ssc.checkpoint("/tmp/checkpoint")
     ssc.start()
     ssc.awaitTermination()
 
    }
+
+  private def replaceSmiley(possibleSmiley: String): String = {
+    possibleSmiley match {
+      case ":)" => "joy"
+      case ":-)" => "joy"
+      case ":(" => "sadness"
+      case ":-(" => "sadness"
+      case whatever => whatever
+    }
+  }
+
 
   private def now(time: Time): String =
     new DateTime(time.milliseconds, DateTimeZone.UTC).toString("yyyy-MM-dd HH:mm:ss")
