@@ -26,7 +26,9 @@ object FromCassandraToSQL {
 
     println("\n ------------ Results ----------------- \n")
 
-    row.collect().foreach(row => println(s" Year(${row(0)}): ${row(1)}%"))
+    row.collect()
+      .sortBy(row => row.getInt(0))
+      .foreach(row => println(s" Year(${row(0)}): ${row(1)}%"))
 
     sc.stop()
   }
