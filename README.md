@@ -58,6 +58,23 @@ There are 2 packages with 2 distinct demos
         </ol>
     </li>        
 </ul>
+
+* _usecases_
+<ul>
+    <br/>
+    <br/>
+    Those scenarios examplify how Spark can be used to achieved various real world use-cases
+    <br/>
+    <li> Scenarios
+        <ol>
+            <li> **CrossClusterDataMigration** : this is a sample code to show how to perform effective cross cluster operations. **DO NOT EXECUTE IT**</li>                                                
+            <li> **CrossDCDataMigration** : this is a sample code to show how to perform effective cross data-centers operations. **DO NOT EXECUTE IT**</li>
+            <li> **DataCleaningForPerformers** : in this scenario, we read data from the `performers` table to clean up empty _country_ and reformatting the _born_ and _died_ dates, if present. The data are saved back into Cassandra, thus achieving **perfect data locality**</li>
+            <li> **DisplayPerformersData** : an utility class to show data **before** and **after** the cleaning</li>
+            <li> **MigrateAlbumnsData** : in this scenario, we read source date from `albums` and save them back into a new table `albums_by_country` purposedly built for fast query on contry and year</li>
+        </ol>
+    </li>        
+</ul>
  
 * _weather.data.demo_
 <ul>
