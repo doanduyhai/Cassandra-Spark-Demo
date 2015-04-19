@@ -33,6 +33,31 @@ There are 2 packages with 2 distinct demos
         If you don't have a Twitter app credentials, create a new apps at <a href="https://apps.twitter.com/" target="_blank">https://apps.twitter.com/</a>
   </li>
 </ul>
+
+* _analytics.music_
+<ul>
+    <li> Data preparation
+        <ol>
+            <li> Go to the folder main/data</li>
+            <li> Execute <em>$CASSANDRA_HOME/bin/cqlsh -f music.cql</em> from this folder. It should create the keyspace <strong>spark_demo</strong> and some tables </li>
+            <li> the script will then load into Cassandra the content of <em>performers.csv</em> and <em>albums.csv</em></li>
+        </ol>
+    </li>
+    <li> Scenarios
+        <br/>
+        <br/>
+        All examples extend the `BaseExample` class which configures a SparkContext and truncate some tables automatically for you
+        so that the example can be executed several times and be consistent
+        <br/>
+        <ol>
+            <li> **Example1** : in this example, we read data from the `performers` table to extract performers and styles into the `performers_by_style` table</li>
+            <li> **Example2** : in this example, we read data from the `performers` table, group styles by performer for aggregation. The results are saved back into the `performers_distribution_by_style` table</li>
+            <li> **Example3** : similar to **Example2** we only want to extract the top 10 styles for **artists** and **groups** and save the results into the `top10_styles` table</li>
+            <li> **Example4** : in this example, we want to know, for each decade, the number of albums released by each artist, group by their origin country. For this we join the table `performers` with `albums`. The results are saved back into the `albums_by_decade_and_country` table</li>
+            <li> **Example5** : similar to **Example4**, we perform the join using the **SparkSQL** language. We also filter out low release count countries. The results are saved back into the `albums_by_decade_and_country_sql` table</li>                                                
+        </ol>
+    </li>        
+</ul>
  
 * _weather.data.demo_
 <ul>
