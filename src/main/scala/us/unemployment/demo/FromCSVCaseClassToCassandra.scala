@@ -43,7 +43,7 @@ object FromCSVCaseClassToCassandra {
 
         UsUnemployment(lines(0).toInt, lines(1).toInt, lines(2).toInt, lines(3).toDouble,
           lines(4).toInt, lines(5).toDouble, lines(6).toInt, lines(7).toInt,
-          lines(8).toInt, lines(9).toDouble, lines(10).toInt)
+          lines(8).toInt, lines(9).toDouble, lines(10).toInt, "")
       }
     }
 
