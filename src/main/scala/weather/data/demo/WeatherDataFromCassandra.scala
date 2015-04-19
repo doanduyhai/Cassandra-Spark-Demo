@@ -15,7 +15,7 @@ object WeatherDataFromCassandra {
   def main (args: Array[String]) {
 
     val conf = new SparkConf(true)
-      .setAppName("write_csv_to_cassandra")
+      .setAppName("weather_data_from_cassandra")
       .setMaster("local[2]")
       .set("spark.cassandra.input.page.row.size","10000")
       .set("spark.cassandra.input.split.size","1000000")
