@@ -50,16 +50,16 @@ There are 2 packages with 2 distinct demos
         so that the example can be executed several times and be consistent
         <br/>
         <ol>
-            <li> **Example1** : in this example, we read data from the `performers` table to extract performers and styles into the `performers_by_style` table</li>
-            <li> **Example2** : in this example, we read data from the `performers` table, group styles by performer for aggregation. The results are saved back into the `performers_distribution_by_style` table</li>
-            <li> **Example3** : similar to **Example2** we only want to extract the top 10 styles for **artists** and **groups** and save the results into the `top10_styles` table</li>
-            <li> **Example4** : in this example, we want to know, for each decade, the number of albums released by each artist, group by their origin country. For this we join the table `performers` with `albums`. The results are saved back into the `albums_by_decade_and_country` table</li>
-            <li> **Example5** : similar to **Example4**, we perform the join using the **SparkSQL** language. We also filter out low release count countries. The results are saved back into the `albums_by_decade_and_country_sql` table</li>                                                
+            <li> <strong>Example1</strong> : in this example, we read data from the `performers` table to extract performers and styles into the `performers_by_style` table</li>
+            <li> <strong>Example2</strong> : in this example, we read data from the `performers` table, group styles by performer for aggregation. The results are saved back into the `performers_distribution_by_style` table</li>
+            <li> <strong>Example3</strong> : similar to <strong>Example2</strong> we only want to extract the top 10 styles for <strong>artists</strong> and <strong>groups</strong> and save the results into the `top10_styles` table</li>
+            <li> <strong>Example4</strong> : in this example, we want to know, for each decade, the number of albums released by each artist, group by their origin country. For this we join the table `performers` with `albums`. The results are saved back into the `albums_by_decade_and_country` table</li>
+            <li> <strong>Example5</strong> : similar to <strong>Example4</strong>, we perform the join using the <strong>SparkSQL</strong> language. We also filter out low release count countries. The results are saved back into the `albums_by_decade_and_country_sql` table</li>                                                
         </ol>
     </li>        
 </ul>
 
-* _usecases_
+* _usecases_ 
 <ul>
     <br/>
     <br/>
@@ -67,11 +67,11 @@ There are 2 packages with 2 distinct demos
     <br/>
     <li> Scenarios
         <ol>
-            <li> **CrossClusterDataMigration** : this is a sample code to show how to perform effective cross cluster operations. **DO NOT EXECUTE IT**</li>                                                
-            <li> **CrossDCDataMigration** : this is a sample code to show how to perform effective cross data-centers operations. **DO NOT EXECUTE IT**</li>
-            <li> **DataCleaningForPerformers** : in this scenario, we read data from the `performers` table to clean up empty _country_ and reformatting the _born_ and _died_ dates, if present. The data are saved back into Cassandra, thus achieving **perfect data locality**</li>
-            <li> **DisplayPerformersData** : an utility class to show data **before** and **after** the cleaning</li>
-            <li> **MigrateAlbumnsData** : in this scenario, we read source date from `albums` and save them back into a new table `albums_by_country` purposedly built for fast query on contry and year</li>
+            <li> <strong>CrossClusterDataMigration</strong> : this is a sample code to show how to perform effective cross cluster operations. <strong>DO NOT EXECUTE IT</strong></li>                                                
+            <li> <strong>CrossDCDataMigration</strong> : this is a sample code to show how to perform effective cross data-centers operations. <strong>DO NOT EXECUTE IT</strong></li>
+            <li> <strong>DataCleaningForPerformers</strong> : in this scenario, we read data from the ```performers``` table to clean up empty _country_ and reformatting the _born_ and _died_ dates, if present. The data are saved back into Cassandra, thus achieving <strong>perfect data locality</strong></li>
+            <li> <strong>DisplayPerformersData</strong> : an utility class to show data <strong>before</strong> and <strong>after</strong> the cleaning</li>
+            <li> <strong>MigrateAlbumnsData</strong> : in this scenario, we read source date from `albums` and save them back into a new table `albums_by_country` purposedly built for fast query on contry and year</li>
         </ol>
     </li>        
 </ul>
