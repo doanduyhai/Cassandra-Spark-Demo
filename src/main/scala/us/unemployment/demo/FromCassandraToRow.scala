@@ -29,8 +29,8 @@ object FromCassandraToRow {
     )
 
     // or
-    val unemployment: CassandraRDD[(String, Double)] = sc.cassandraTable(KEYSPACE, TABLE)
-      .select("year", "unemployed_percentage_to_labor").as((_: String, _: Double))
+    val unemployment: CassandraRDD[(Int, Double)] = sc.cassandraTable(KEYSPACE, TABLE)
+      .select("year", "unemployed_percentage_to_labor").as((_: Int, _: Double))
 
     println("\n ------------Tuples ----------------- \n")
 

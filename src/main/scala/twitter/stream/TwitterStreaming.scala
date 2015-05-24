@@ -54,6 +54,7 @@ object TwitterStreaming {
     ssc.start()
     ssc.awaitTermination()
 
+
    }
 
   private def replaceSmiley(possibleSmiley: String): String = {

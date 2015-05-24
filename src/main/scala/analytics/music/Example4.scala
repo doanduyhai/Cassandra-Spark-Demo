@@ -55,7 +55,6 @@ object Example4 extends BaseExample {
       .joinWithCassandraTable[(String,String)](KEYSPACE, PERFORMERS, SomeColumns("name","country"))
       .on(SomeColumns("name"))
       .filter{case(_,(_,country)) => country != null && country != "Unknown"}
-//      .map{case(performerAndYear,(name,country)) => (name,(country,performerAndYear.year))}
       .map{case((performer,year),(name,country)) => (name,(country,year))}
 
 

@@ -6,6 +6,8 @@ WITH replication = {
 
 USE spark_demo;
 
+CREATE TABLE IF NOT EXISTS countries(name TEXT PRIMARY KEY);
+
 CREATE TABLE IF NOT EXISTS performers (
   name TEXT,
   country TEXT,
@@ -69,3 +71,5 @@ FROM 'performers.csv';
 
 COPY albums(performer,title, year, country, quality, status)
 FROM 'albums.csv';
+
+COPY countries(name) FROM 'countries.csv';
